@@ -57,7 +57,7 @@ export default class Calculator extends Component {
             .
           </button>
           <button type='button' class='all-clear' value='all-clear'>
-            AC
+            CLEAR
           </button>
 
           <button type='button' class='equal-sign' value='='>
