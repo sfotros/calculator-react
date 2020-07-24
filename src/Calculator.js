@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { evaluate } from 'mathjs';
 import './Calculator.css';
 
+import NumBtn from './components/NumBtn';
 export default class Calculator extends Component {
   state = {
     screenShow: '',
@@ -41,10 +42,15 @@ export default class Calculator extends Component {
           disabled
         />
 
+        {/*//////////////// cpm//////////////////////////////////// */}
+        <NumBtn
+          value='12'
+          onClick={(e) => this.buttonPressHandler(e.target.value)}
+        />
         <div class='calculator-keys'>
           <button
             type='button'
-            class='operator'
+            className='operator'
             value='+'
             onClick={(e) => this.buttonPressHandler(e.target.value)}
           >
@@ -73,7 +79,7 @@ export default class Calculator extends Component {
           </button>
           <button
             type='button'
-            class='operator'
+            className='operator'
             value='-'
             onClick={(e) => this.buttonPressHandler(e.target.value)}
           >
@@ -102,7 +108,7 @@ export default class Calculator extends Component {
           </button>
           <button
             type='button'
-            class='operator'
+            className='operator'
             value='*'
             onClick={(e) => this.buttonPressHandler(e.target.value)}
           >
@@ -131,7 +137,7 @@ export default class Calculator extends Component {
           </button>
           <button
             type='button'
-            class='operator'
+            className='operator'
             value='/'
             onClick={(e) => this.buttonPressHandler(e.target.value)}
           >
@@ -147,7 +153,7 @@ export default class Calculator extends Component {
           </button>
           <button
             type='button'
-            class='decimal'
+            className='decimal'
             value='.'
             onClick={(e) => this.buttonPressHandler(e.target.value)}
           >
@@ -155,7 +161,7 @@ export default class Calculator extends Component {
           </button>
           <button
             type='button'
-            class='all-clear'
+            className='all-clear'
             value='all-clear'
             onClick={this.clearInput}
           >
@@ -164,7 +170,7 @@ export default class Calculator extends Component {
 
           <button
             type='button'
-            class='equal-sign'
+            className='equal-sign'
             value='='
             onClick={this.handleEqual}
           >
