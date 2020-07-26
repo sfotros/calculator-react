@@ -1,34 +1,64 @@
 import React from 'react';
 import { Component } from 'react';
-import { evaluate } from 'mathjs';
+import { evaluate, string } from 'mathjs';
 import './Calculator.css';
 
 import NumBtn from './components/NumBtn';
 export default class Calculator extends Component {
   state = {
-    screenShow: '',
+    screenShow: '0',
   };
 
   buttonPressHandler = (val) => {
     this.setState({
-      screenShow: this.state.screenShow + val,
+      screenShow:
+        this.state.screenShow === '0'
+          ? String(val)
+          : this.state.screenShow + val,
     });
   };
 
   handleOperate = (val) => {
-    this.setState({
-      screenShow: this.state.screenShow + val,
-    });
+    let arr = this.state.screenShow.split('');
+    let lastLtr = arr[arr.length - 1];
+    if (
+      lastLtr !== '+' &&
+      lastLtr !== '-' &&
+      lastLtr !== '*' &&
+      lastLtr !== '/'
+    ) {
+      this.setState({
+        screenShow:
+          this.state.screenShow === '0'
+            ? String(val)
+            : this.state.screenShow + val,
+      });
+    } else {
+      return;
+    }
   };
+
+  pointPressHandler = (val) => {
+    let arr = this.state.screenShow.split('');
+    let lastLtr = arr[arr.length - 1];
+    if (lastLtr !== '.' && arr.indexOf('.') === -1) {
+      this.setState({
+        screenShow: this.state.screenShow + val,
+      });
+    } else {
+      return;
+    }
+  };
+
   clearInput = () => {
     this.setState({
-      screenShow: '',
+      screenShow: '0',
     });
   };
 
   handleEqual = () => {
     this.setState({
-      screenShow: evaluate(this.state.screenShow),
+      screenShow: parseFloat(evaluate(this.state.screenShow)).toFixed(4),
     });
   };
 
@@ -37,22 +67,23 @@ export default class Calculator extends Component {
       <div className='calculator'>
         <input
           type='text'
-          class='calculator-screen'
+          className='calculator-screen'
           value={this.state.screenShow}
           disabled
         />
 
         {/*//////////////// cpm//////////////////////////////////// */}
-        <NumBtn
+        {/* <NumBtn
           value='12'
           onClick={(e) => this.buttonPressHandler(e.target.value)}
-        />
-        <div class='calculator-keys'>
+        /> */}
+
+        <div className='calculator-keys'>
           <button
             type='button'
             className='operator'
             value='+'
-            onClick={(e) => this.buttonPressHandler(e.target.value)}
+            onClick={(e) => this.handleOperate(e.target.value)}
           >
             +
           </button>
@@ -81,7 +112,7 @@ export default class Calculator extends Component {
             type='button'
             className='operator'
             value='-'
-            onClick={(e) => this.buttonPressHandler(e.target.value)}
+            onClick={(e) => this.handleOperate(e.target.value)}
           >
             -
           </button>
@@ -110,7 +141,7 @@ export default class Calculator extends Component {
             type='button'
             className='operator'
             value='*'
-            onClick={(e) => this.buttonPressHandler(e.target.value)}
+            onClick={(e) => this.handleOperate(e.target.value)}
           >
             &times;
           </button>
@@ -139,7 +170,7 @@ export default class Calculator extends Component {
             type='button'
             className='operator'
             value='/'
-            onClick={(e) => this.buttonPressHandler(e.target.value)}
+            onClick={(e) => this.handleOperate(e.target.value)}
           >
             &divide;
           </button>
@@ -155,7 +186,7 @@ export default class Calculator extends Component {
             type='button'
             className='decimal'
             value='.'
-            onClick={(e) => this.buttonPressHandler(e.target.value)}
+            onClick={(e) => this.pointPressHandler(e.target.value)}
           >
             .
           </button>
