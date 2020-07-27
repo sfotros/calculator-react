@@ -58,7 +58,8 @@ export default class Calculator extends Component {
 
   handleEqual = () => {
     this.setState({
-      screenShow: parseFloat(evaluate(this.state.screenShow)).toFixed(4),
+      // screenShow: parseFloat(evaluate(this.state.screenShow)).toFixed(4),
+      screenShow: evaluate(this.state.screenShow),
     });
   };
 
